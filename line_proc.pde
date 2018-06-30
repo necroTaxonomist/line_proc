@@ -2,7 +2,7 @@
 ArrayList<Polygon> pgons = new ArrayList<Polygon>();
 
 Polygon curGon = null;
-float resDist = 20.0f;
+float resDist = 10.0f;
 float smallDist = .005f;
 
 Bezier curBez = null;
@@ -77,7 +77,9 @@ void mouseReleased()
             }
         }
         
-        AutoBezier ab = new AutoBezier(5, curGon);
+        AutoBezier ab = new AutoBezier(bezRes, curGon);
+        pgons.remove(curGon);
+        pgons.add(ab);
     }
     curGon = null;
 }

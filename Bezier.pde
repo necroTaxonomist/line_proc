@@ -1,8 +1,8 @@
 
 class Bezier extends Polygon
 {
-    int res;
-    Polygon show;
+    private int res;
+    private Polygon show;
     
     public Bezier(int _res, Coord ... _vert)
     {
@@ -45,6 +45,12 @@ class Bezier extends Polygon
         return v;
     }
     
+    public void pushBackAll(Coord ... verts)
+    {
+        super.pushBackAll(verts);
+        recalc();
+    }
+    
     public Coord popBack()
     {
         Coord v = super.popBack();
@@ -54,10 +60,10 @@ class Bezier extends Polygon
     
     public void draw()
     {
-        stroke(255,0,0);
-        super.draw();
+        //stroke(255,0,0);
+        //super.draw();
+        //stroke(0);
         
-        stroke(0);
         if (show != null)
             show.draw();
     }
@@ -66,6 +72,16 @@ class Bezier extends Polygon
     {
         mergeDist = 0;
         // Do nothing
+    }
+    
+    protected Polygon shownPolygon()
+    {
+        return show;
+    }
+    
+    public int getRes()
+    {
+        return res;
     }
 }
 

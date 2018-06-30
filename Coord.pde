@@ -65,27 +65,27 @@ class Coord
     }
 }
 
-Coord rotate(Coord c, float theta)
+Coord rotateCoord(Coord c, float theta)
 {
     Coord nc = new Coord(c);
     nc.rotate(theta);
     return nc;
 }
 
-Coord tl(Coord c, float dx, float dy)
+Coord tlCoord(Coord c, float dx, float dy)
 {
     Coord nc = new Coord(c);
     nc.tl(dx, dy);
     return nc;
 }
 
-Coord scale(Coord c, float xs, float ys)
+Coord scaleCoord(Coord c, float xs, float ys)
 {
     Coord nc = new Coord(c);
     nc.scale(xs, ys);
     return nc;
 }
-Coord scale(Coord c, float s)
+Coord scaleCoord(Coord c, float s)
 {
-    return scale(c, s, s);
+    return scaleCoord(c, s, s);
 }
