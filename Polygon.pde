@@ -5,6 +5,7 @@ class Polygon
     
     public Polygon(boolean _closed, Coord ... _vert)
     {
+        vert = new ArrayList<Coord>();
         closed = _closed;
         
         for (Coord v : _vert)
@@ -21,18 +22,37 @@ class Polygon
             return vert.get(index);
     }
     
-    public Coord getFirst()
+    public Coord getFront()
     {
         return getVert(0);
     }
     
-    public Coord getLast()
+    public Coord getBack()
     {
         return getVert(vert.size()-1);
     }
     
+    public Coord pushBack(Coord v)
+    {
+        vert.add(v);
+        return v;
+    }
+    
+    public Coord popBack()
+    {
+        Coord v = getBack();
+        if (v != null)
+        {
+            vert.remove(vert.size()-1);
+        }
+        return v;
+    }
+    
     public void draw()
     {
+        if (vert.size() == 0)
+            return;
+        
         Coord first = null;
         Coord prev = null;
         for (Coord v : vert)
@@ -55,12 +75,18 @@ class Polygon
     }
     public void close(float mergeDist)
     {
-        Coord f = getFirst();
-        Coord l = getLast();
+        Coord f = getFront();
+        Coord b = getBack();
         
-        if (mergeDist > 0 && f != null && f != l)
+        if (mergeDist > 0 && f != null && f != b)
         {
-            float endDist = f.dist(l);
+            float endDist = f.dist(b);
+            if (endDist <= mergeDist)
+            {
+                f.x = (f.x + b.x) / 2;
+                f.y = (f.y + b.y) / 2;
+                popBack();
+            }
         }
         
         closed = true;
