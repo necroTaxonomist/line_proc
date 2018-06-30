@@ -34,6 +34,35 @@ double testMax(Testable t, double lower, double upper, double inc)
     return testMax(t, lower, upper, inc, null);
 }
 
+// Finds the minimum value of a testable function
+// over the range [lower, upper] with increments of inc
+// If xPtr is not null, the x value corresponding
+// to the max will be stored in it
+double testMin(Testable t, double lower, double upper, double inc, double[] xPtr)
+{
+    double min = 0;
+    boolean tested = false;
+    
+    for (double x = lower; x <= upper; x += inc)
+    {
+        double val = t.f(x);
+        
+        if (!tested || val < min)
+        {
+            min = val;
+            tested = true;
+            if (xPtr != null)
+                xPtr[0] = x;
+        }
+    }
+    
+    return min;
+}
+double testMin(Testable t, double lower, double upper, double inc)
+{
+    return testMin(t, lower, upper, inc, null);
+}
+
 // Returns true if this function appears to only increase over the given range
 boolean testIncreasing(Testable t, double lower, double upper, double inc)
 {

@@ -14,6 +14,17 @@ class Polygon
         }
     }
     
+    public Polygon(Polygon p)
+    {
+        vert = new ArrayList<Coord>();
+        closed = p.closed;
+        
+        for (Coord v : p.vert)
+        {
+            vert.add(new Coord(v));
+        }
+    }
+    
     public Coord getVert(int index)
     {
         if (index < 0 || index >= vert.size())
@@ -95,5 +106,65 @@ class Polygon
         }
         
         closed = true;
+    }
+    
+    // Transformations
+    public void rotate(float theta)
+    {
+        for (Coord v : vert)
+        {
+            v.rotate(theta);
+        }
+    }
+    
+    public void tl(Coord d)
+    {
+        for (Coord v : vert)
+        {
+            v.tl(d);
+        }
+    }
+    
+    // Testable functions
+    private class XTest implements Testable
+    {
+        private Polygon p;
+        
+        public XTest(Polygon _p)
+        {
+            p = _p;
+        }
+        
+        public double f(double x)
+        {
+            int i = (int)x;
+            return p.getVert(i).x;
+        }
+    }
+    
+    private class YTest implements Testable
+    {
+        private Polygon p;
+        
+        public YTest(Polygon _p)
+        {
+            p = _p;
+        }
+        
+        public double f(double x)
+        {
+            int i = (int)x;
+            return p.getVert(i).y;
+        }
+    }
+    
+    public Testable xFunc()
+    {
+        return new XTest(this);
+    }
+    
+    public Testable yFunc()
+    {
+        return new YTest(this);
     }
 }

@@ -14,24 +14,6 @@ void setup()
 {
     size(750,750);
     frameRate(30);
-    
-    double[] atX = new double[1];
-    
-    Testable func = new Testable()
-    {
-        public double f(double x)
-        {
-            return -Math.sqrt(3 * x);
-        }
-    };
-    
-    if (testDecreasing(func, 1, 6, .01))
-    {
-        double x = testDecBinarySearch(func, -2, 1, 6, 20);
-        println("(" + x + "," + -2 + ")");
-    }
-    else
-        println("Not decreasing");
 }
 
 void draw()
@@ -94,6 +76,8 @@ void mouseReleased()
                 curGon.pushBack(v);
             }
         }
+        
+        AutoBezier ab = new AutoBezier(5, curGon);
     }
     curGon = null;
 }
