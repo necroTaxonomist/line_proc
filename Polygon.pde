@@ -48,6 +48,11 @@ class Polygon
         return v;
     }
     
+    public int size()
+    {
+        return vert.size();
+    }
+    
     public void draw()
     {
         if (vert.size() == 0)
